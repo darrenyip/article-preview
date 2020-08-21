@@ -1,8 +1,14 @@
 <script>
     let footerToggle = false;
-    function toogleFooter() {
-        footerToggle = !footerToggle;
-        console.log("footerToggle: ", footerToggle);
+    function openFooter() {
+        if (!footerToggle) {
+            footerToggle = !footerToggle;
+        }
+    }
+    function closeFooter() {
+        if (footerToggle) {
+            footerToggle = !footerToggle;
+        }
     }
 </script>
 
@@ -117,8 +123,13 @@
     // }
     .hideFooter {
         display: none;
+        position: absolute;
+        animation-name: hideShare;
+        animation-duration: 2s;
     }
     .showHiddenFooter {
+        animation-name: displayShare;
+        animation-duration: 2s;
         display: flex;
         position: absolute;
         border-bottom-left-radius: 5px;
@@ -130,8 +141,7 @@
         height: 32px;
         padding: 16px 32px 16px 32px;
         .share {
-            svg{
-                transform: translateY(-1px);
+            svg {
                 align-self: center;
             }
             background-color: var(--desaturated-dark-blue);
@@ -167,6 +177,41 @@
     .mr-16 {
         margin-right: 16px;
     }
+    // css animation
+    @keyframes displayShare {
+        from {
+            bottom: -50px;
+        }
+        to {
+            bottom: 0px;
+        }
+    }
+    @keyframes hideShare {
+        from {
+            bottom: 0px;
+        }
+        to {
+            bottom: -50px;
+        }
+    }
+    @media (min-width:1200px){
+        .card{
+            display:flex;
+            width:730px;
+            height:280px;
+            .header{
+                width: 285px;
+                height:280px;
+                img{
+                    width: 100%;
+                    height:100%;
+                }
+            }
+            .main-container{
+                width:365px;
+            }
+        }
+    }
 </style>
 
 <main>
@@ -196,7 +241,7 @@
                     <p class="info-name">Michelle Appleton</p>
                     <p class="info-date">28 Jun 2020</p>
                 </div>
-                <div class="share" on:click={toogleFooter}>
+                <div class="share" on:click={openFooter}>
                     <img src="./images/icon-share.svg" alt="" />
                 </div>
             </div>
@@ -214,16 +259,28 @@
                         <img src="./images/icon-pinterest.svg" alt="" />
                     </div>
                 </div>
-                <div class="share">
+                <div class="share " on:click={closeFooter}>
                     <svg
+                        version="1.1"
+                        id="Layer_1"
                         xmlns="http://www.w3.org/2000/svg"
-                        width="15"
-                        height="13">
-                        <path
-                            fill="#fff"
-                            d="M15 6.495L8.766.014V3.88H7.441C3.33 3.88 0 7.039
-                            0 10.936v2.049l.589-.612C2.59 10.294 5.422 9.11 8.39
-                            9.11h.375v3.867L15 6.495z" />
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        x="0px"
+                        y="0px"
+                        width="15px"
+                        height="15px"
+                        viewBox="0 0 121.31 122.876"
+                        enable-background="new 0 0 121.31 122.876"
+                        xml:space="preserve">
+                        <g>
+                            <path
+                                fill="#fff"
+                                d="M90.914,5.296c6.927-7.034,18.188-7.065,25.154-0.068
+                                c6.961,6.995,6.991,18.369,0.068,25.397L85.743,61.452l30.425,30.855c6.866,6.978,6.773,18.28-0.208,25.247
+                                c-6.983,6.964-18.21,6.946-25.074-0.031L60.669,86.881L30.395,117.58c-6.927,7.034-18.188,7.065-25.154,0.068
+                                c-6.961-6.995-6.992-18.369-0.068-25.397l30.393-30.827L5.142,30.568c-6.867-6.978-6.773-18.28,0.208-25.247
+                                c6.983-6.963,18.21-6.946,25.074,0.031l30.217,30.643L90.914,5.296L90.914,5.296z" />
+                        </g>
                     </svg>
                 </div>
             </div>
