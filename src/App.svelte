@@ -10,6 +10,9 @@
             footerToggle = !footerToggle;
         }
     }
+    function toogleFooter(){
+        footerToggle = !footerToggle;
+    }
 </script>
 
 <style type="text/scss">
@@ -68,6 +71,7 @@
         flex-direction: row;
         justify-content: space-between;
         align-content: center;
+        position: relative;
         .personal-logo {
             margin-right: 16px;
             width: 40px;
@@ -135,9 +139,9 @@
         border-bottom-left-radius: 5px;
         border-bottom-right-radius: 5px;
         background-color: var(--very-dark-grayish-blue);
-        bottom: 0;
+        bottom: -23px;
         width: 263px;
-        left: 0;
+        left: -32px;
         height: 32px;
         padding: 16px 32px 16px 32px;
         .share {
@@ -180,10 +184,10 @@
     // css animation
     @keyframes displayShare {
         from {
-            bottom: -50px;
+            bottom: -100px;
         }
         to {
-            bottom: 0px;
+            bottom: -23px;
         }
     }
     @keyframes hideShare {
@@ -191,24 +195,65 @@
             bottom: 0px;
         }
         to {
-            bottom: -50px;
+            bottom: -23px;
         }
     }
-    @media (min-width:1200px){
-        .card{
-            display:flex;
-            width:730px;
-            height:280px;
-            .header{
+    @media (min-width: 1200px) {
+        .card {
+            display: flex;
+            width: 730px;
+            height: 280px;
+            .header {
                 width: 285px;
-                height:280px;
-                img{
+                height: 280px;
+                img {
                     width: 100%;
-                    height:100%;
+                    height: 100%;
                 }
             }
-            .main-container{
-                width:365px;
+            .main-container {
+                width: 365px;
+                padding: 32px 40px;
+            }
+        }
+        .showHiddenFooter {
+            bottom: 59px;
+            left: 146px;
+            width: 183px;
+            border-radius: 5px !important;
+        }
+        .d-none {
+            display: none;
+        }
+        .share-icons::after {
+            width: 0;
+            height: 0;
+            content: "";
+            position: absolute;
+            border-left: 1.2rem solid transparent;
+            border-right: 1.2rem solid transparent;
+            border-top: 1.2rem solid var(--very-dark-grayish-blue);
+            left: 200px;
+            transform: translateX(-50%);
+            bottom: -1.2rem;
+        }
+        // css animation
+        @keyframes displayShare {
+            from {
+                bottom: 10px;
+                opacity: 0;
+            }
+            to {
+                bottom: 59px;
+                opacity: 1;
+            }
+        }
+        @keyframes hideShare {
+            from {
+                bottom: 0px;
+            }
+            to {
+                bottom: -23px;
             }
         }
     }
@@ -241,49 +286,50 @@
                     <p class="info-name">Michelle Appleton</p>
                     <p class="info-date">28 Jun 2020</p>
                 </div>
-                <div class="share" on:click={openFooter}>
+                <div class="share" on:click={toogleFooter}>
                     <img src="./images/icon-share.svg" alt="" />
                 </div>
-            </div>
-            <div
-                class={footerToggle === true ? 'showHiddenFooter' : 'hideFooter'}>
-                <div class="share-icons">
-                    <p>SHARE</p>
-                    <div class="icon mr-16">
-                        <img src="./images/icon-facebook.svg" alt="" />
+                <div
+                    class={footerToggle === true ? 'showHiddenFooter' : 'hideFooter'}>
+                    <div class="share-icons">
+                        <p>SHARE</p>
+                        <div class="icon mr-16">
+                            <img src="./images/icon-facebook.svg" alt="" />
+                        </div>
+                        <div class="icon mr-16">
+                            <img src="./images/icon-twitter.svg" alt="" />
+                        </div>
+                        <div class="icon">
+                            <img src="./images/icon-pinterest.svg" alt="" />
+                        </div>
                     </div>
-                    <div class="icon mr-16">
-                        <img src="./images/icon-twitter.svg" alt="" />
-                    </div>
-                    <div class="icon">
-                        <img src="./images/icon-pinterest.svg" alt="" />
+                    <div class="share d-none" on:click={closeFooter}>
+                        <svg
+                            version="1.1"
+                            id="Layer_1"
+                            xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                            x="0px"
+                            y="0px"
+                            width="15px"
+                            height="15px"
+                            viewBox="0 0 121.31 122.876"
+                            enable-background="new 0 0 121.31 122.876"
+                            xml:space="preserve">
+                            <g>
+                                <path
+                                    fill="#fff"
+                                    d="M90.914,5.296c6.927-7.034,18.188-7.065,25.154-0.068
+                                    c6.961,6.995,6.991,18.369,0.068,25.397L85.743,61.452l30.425,30.855c6.866,6.978,6.773,18.28-0.208,25.247
+                                    c-6.983,6.964-18.21,6.946-25.074-0.031L60.669,86.881L30.395,117.58c-6.927,7.034-18.188,7.065-25.154,0.068
+                                    c-6.961-6.995-6.992-18.369-0.068-25.397l30.393-30.827L5.142,30.568c-6.867-6.978-6.773-18.28,0.208-25.247
+                                    c6.983-6.963,18.21-6.946,25.074,0.031l30.217,30.643L90.914,5.296L90.914,5.296z" />
+                            </g>
+                        </svg>
                     </div>
                 </div>
-                <div class="share " on:click={closeFooter}>
-                    <svg
-                        version="1.1"
-                        id="Layer_1"
-                        xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                        x="0px"
-                        y="0px"
-                        width="15px"
-                        height="15px"
-                        viewBox="0 0 121.31 122.876"
-                        enable-background="new 0 0 121.31 122.876"
-                        xml:space="preserve">
-                        <g>
-                            <path
-                                fill="#fff"
-                                d="M90.914,5.296c6.927-7.034,18.188-7.065,25.154-0.068
-                                c6.961,6.995,6.991,18.369,0.068,25.397L85.743,61.452l30.425,30.855c6.866,6.978,6.773,18.28-0.208,25.247
-                                c-6.983,6.964-18.21,6.946-25.074-0.031L60.669,86.881L30.395,117.58c-6.927,7.034-18.188,7.065-25.154,0.068
-                                c-6.961-6.995-6.992-18.369-0.068-25.397l30.393-30.827L5.142,30.568c-6.867-6.978-6.773-18.28,0.208-25.247
-                                c6.983-6.963,18.21-6.946,25.074,0.031l30.217,30.643L90.914,5.296L90.914,5.296z" />
-                        </g>
-                    </svg>
-                </div>
             </div>
+
         </div>
     </article>
 </main>
